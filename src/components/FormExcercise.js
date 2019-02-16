@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from "react";
+import * as constants from '../constants/GlobalConstants'
 import {
   Button,
   TextField,
@@ -42,11 +43,20 @@ export default withStyles(styles)(
       }
     };
 
-    handleToggle = () => {
-      this.setState({
-        open: !this.state.open
-      });
-    };
+    //is invoked immediately after updating occurs. 
+    //This method is not called for the initial render.
+    componentDidUpdate(prevProps) {
+      //console.log(`openForm pre: ${prevProps.openForm}`)
+      //console.log(`openForm post: ${this.props.openForm}`)
+      if(prevProps.openForm!==this.props.openForm){
+      this.setState({ open: this.props.openForm });
+      }
+      if(prevProps.excercise!==this.props.excercise){
+        this.setState((state, props) => ({
+          excercise: props.excercise
+        }));
+      }
+    }
 
     handleChange = name => ({ target: { value } }) => {
       this.setState({
@@ -57,13 +67,22 @@ export default withStyles(styles)(
       });
     };
 
-    handleSubmit = () => {
+    handleSubmit = action => () => {
       const { excercise } = this.state;
 
-      this.props.onCreate({
-        ...excercise,
-        id: excercise.title.toLocaleLowerCase().replace(/ /g, "-")
-      });
+      if(action===constants.CREATE){
+        this.props.addExcercise({
+          ...excercise,
+          id: excercise.title.toLocaleLowerCase().replace(/ /g, "-")
+        });
+      }
+      else if(action===constants.EDIT){
+        this.props.editExcercise(excercise)
+      }
+
+      else{
+        console.log('ERROR')
+      }
 
       this.setState({
         open: false,
@@ -77,24 +96,36 @@ export default withStyles(styles)(
 
     render() {
       const {
-          open,
-          excercise: { title, description, muscles }
+          open
         } = this.state,
-        { classes, muscles: categories } = this.props;
+        { classes, muscles: categories, 
+          handleToggle,
+          setExcercise, openForm, 
+          excercise: { 
+            title = '', 
+            description = '', 
+            muscles = '' } } = this.props;
 
+      const buttonText = title===''?constants.CREATE:constants.EDIT;
       return (
         <Fragment>
           <Fab
             size="small"
             color="secondary"
             aria-label="Add"
-            onClick={this.handleToggle}
+            onClick={() => {
+              setExcercise({})
+              handleToggle(!openForm)}
+            }
           >
             <AddIcon />
           </Fab>
           <Dialog
             open={open}
-            onClose={this.handleToggle}
+            onClose={() => {
+              setExcercise({})
+              handleToggle(!openForm)}
+              }
             aria-labelledby="form-dialog-title"
           >
             <DialogTitle id="form-dialog-title">
@@ -106,6 +137,7 @@ export default withStyles(styles)(
                 <TextField
                   label="Title"
                   name={title}
+                  value={this.state.excercise.title ? this.state.excercise.title : title}
                   className={classes.formControl}
                   onChange={this.handleChange("title")}
                   margin="normal"
@@ -114,7 +146,8 @@ export default withStyles(styles)(
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="muscles">Muscles</InputLabel>
                   <Select
-                    value={muscles}
+                    value={this.state.excercise.muscles ? this.state.excercise.muscles : muscles}
+                    name={muscles}
                     className={classes.selectEmpty}
                     onChange={this.handleChange("muscles")}
                   >
@@ -129,6 +162,7 @@ export default withStyles(styles)(
                 <TextField
                   label="Description"
                   multiline
+                  value={this.state.excercise.description ? this.state.excercise.description : description}
                   className={classes.formControl}
                   rowsMax="4"
                   name={description}
@@ -142,9 +176,9 @@ export default withStyles(styles)(
               <Button
                 color="primary"
                 variant="contained"
-                onClick={this.handleSubmit}
+                onClick={this.handleSubmit(buttonText)}
               >
-                Create
+                {buttonText}
               </Button>
             </DialogActions>
           </Dialog>

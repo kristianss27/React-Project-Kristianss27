@@ -7,8 +7,9 @@ export default ({ muscles, category, onSelect }) => {
   const index = category
     ? muscles.findIndex(group => group === category) + 1
     : 0;
+
   const indexSelected = (e, index) =>
-    onSelect(index === 0 ? "" : muscles[index - 1]);
+    onSelect(index === 0 ? '' : muscles[index - 1]);
 
   return (
     <Paper>
