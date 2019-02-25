@@ -4,6 +4,7 @@ import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
 
 export default ({ muscles, category, onSelect }) => {
+  muscles = muscles.map(item => item)
   const index = category
     ? muscles.findIndex(group => group === category) + 1
     : 0;

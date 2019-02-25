@@ -18,6 +18,7 @@ const excercisesByMuscle = state => {
       excercises[muscles] = excercises[muscles]
         ? [...excercises[muscles], excercise]
         : [excercise];
+          
       return excercises;
     }, initMuscles)
   );

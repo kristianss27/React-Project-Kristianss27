@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import FormExcercise from "../components/FormExcercise";
-import { addExcercise, openForm, setExcercise, editExcercise } from "../actions";
+import { addExcercise, openForm, 
+  setExcercise, editExcercise} from "../actions";
 import { muscles } from "../store";
 
 const mapStateToProps = (state, ownProps) => ({
@@ -9,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
   excercise: state.excercise
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch,ownProps) => ({
   addExcercise: excercise => {
     dispatch(addExcercise(excercise))
     dispatch(openForm(false))

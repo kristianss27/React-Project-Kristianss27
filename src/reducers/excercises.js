@@ -1,10 +1,15 @@
 import {
   ADD_EXCERCISE,
   DELETE_EXCERCISE,
-  EDIT_EXCERCISE
+  EDIT_EXCERCISE,
+  REQUEST_EXCERCISES,
+  RECEIVE_EXCERCISES
 } from "../constants/ActionTypes";
+import initialState from "../store";
+import { excercises as excercisesByDefault } from '../store'
 
-export default function excercises(state = null, action) {
+
+export default function excercises(state = [...excercisesByDefault], action) {
   switch (action.type) {
     case ADD_EXCERCISE:
     const array = [
@@ -14,7 +19,6 @@ export default function excercises(state = null, action) {
           title: action.title,
           muscles: action.muscles,
           description: action.description,
-          
         }
       ]
       return array;
@@ -25,10 +29,15 @@ export default function excercises(state = null, action) {
         excercise= excercise.id===action.excercise.id
         ? action.excercise
         : excercise
-        
         return excercise
       })
-
+    case REQUEST_EXCERCISES:
+      return state
+    case RECEIVE_EXCERCISES:
+      const result = [
+        ...action.items,...state
+      ]
+      return result;
     default:
       return state;
   }

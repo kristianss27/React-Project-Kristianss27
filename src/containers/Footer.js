@@ -1,18 +1,16 @@
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import Footer from "../components/Layouts/Footer";
 import { setCategory } from "../actions";
-import { muscles } from "../store";
 
 const mapStateToProps = state => ({
-  muscles,
+  muscles: state.muscles.items ? state.muscles.items:[1],
   category: state.category
 });
 
 const mapDispatchToProps = dispatch => ({
     onSelect: id => {
       dispatch(setCategory(id));
-  }
+    }
 });
 
 export default connect(
