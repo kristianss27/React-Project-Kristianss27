@@ -6,16 +6,18 @@ import {
   List,
   ListItem,
   ListItemText,
-  IconButton,
+  IconButton, Tabs, Tab,
   ListItemSecondaryAction,
-  Card, CardHeader, CardMedia, CardContent, CardActions, Avatar
+  Card, CardMedia
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import parse from 'html-react-parser'
-import red from '@material-ui/core/colors/red';
+import red from '@material-ui/core/colors/red'
+import SwipeableViews from 'react-swipeable-views'
+
 
 const styles = theme => ({
   root: {
@@ -28,6 +30,7 @@ const styles = theme => ({
     height: 500,
     overflowY: "auto"
   },
+  
   items: {
     height: 60,
     width: 150,
@@ -73,9 +76,35 @@ const styles = theme => ({
   },
 });
 
-const ExcerciseList = ({ classes, excercises, category, onSelect, onDelete, excercise, openForm, onEdit }) => {
+class ExcerciseList extends React.Component{
+  state = {
+    index:0
+  }
+
+  handleChangeIndex = index => {
+    this.setState({
+      index,
+    });
+  };
+
+  handleChange = (value) => {
+    this.setState({
+      index: value,
+    });
+  };
+
+  handleChangeTab = (event,index) => {
+    this.setState({
+      index,
+    });
+  };
+
+  render(){
+
+  const { classes, excercises, category, onSelect, onDelete, excercise, openForm, onEdit } = this.props
   const title = excercise.title ? excercise.title : "Excercise App";
   const description = excercise.title ? parse(excercise.description) : "Pick up an excercise from the left";
+  const { index } = this.state
   const images = excercise.images
   ? excercise.images.map(item => {
       return(<CardMedia key={item}
@@ -85,10 +114,10 @@ const ExcerciseList = ({ classes, excercises, category, onSelect, onDelete, exce
       )
   })
   :''
-  return (
-    <Grid container>
-      <Grid item xs sm>
-        <Paper className={classes.paper}>
+  return(
+    <div class={classes.root}>
+      <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}> 
+        <div>
           {excercises.map(([group, excercises]) =>
             !category || group === category ? (
               <Fragment key={group}>
@@ -100,7 +129,11 @@ const ExcerciseList = ({ classes, excercises, category, onSelect, onDelete, exce
                     <ListItem
                       key={excercise.id}
                       button
-                      onClick={() => onSelect(excercise)}
+                      onClick={() => {
+                        this.handleChange(1)
+                        onSelect(excercise)
+                        }
+                      }
                     >
                     
                     <ListItemText primary={excercise.title}/>
@@ -126,10 +159,8 @@ const ExcerciseList = ({ classes, excercises, category, onSelect, onDelete, exce
               </Fragment>
             ) : null
           )}
-        </Paper>
-      </Grid>
-      <Grid item xs sm>
-        <Paper className={classes.paper}>
+          </div>
+      <div onclick="off()">
           <Typography variant="display1">{title}</Typography>
           <Typography variant="subheading" style={{ marginTop: 20 }}>
             {
@@ -139,11 +170,12 @@ const ExcerciseList = ({ classes, excercises, category, onSelect, onDelete, exce
           <Card className={classes.card}>
             {images}
           </Card> 
-        </Paper>
-      </Grid>
-    </Grid>
-  );
-};
+    </div>
+    </SwipeableViews>
+    </div>
+  )
+}
+}
 
 ExcerciseList.propTypes = {
   classes: PropTypes.object.isRequired,

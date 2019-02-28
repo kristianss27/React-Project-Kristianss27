@@ -4,7 +4,7 @@ import { deleteExcercise, setExcercise, openForm } from "../actions";
 import { muscles } from "../store";
 
 const excercisesByMuscle = state => {
-  const initMuscles = muscles.reduce(
+  let initMuscles = muscles.reduce(
     (excercises, category) => ({
       ...excercises,
       [category]: []
@@ -12,8 +12,8 @@ const excercisesByMuscle = state => {
     {}
   );
 
-  return Object.entries(
-    state.excercises.reduce((excercises, excercise) => {
+  const result = Object.entries(
+    state.excercises.items.reduce((excercises, excercise) => {
       const { muscles } = excercise;
       excercises[muscles] = excercises[muscles]
         ? [...excercises[muscles], excercise]
@@ -22,6 +22,12 @@ const excercisesByMuscle = state => {
       return excercises;
     }, initMuscles)
   );
+  console.log('RESULT: '+result)
+
+  const lastMuscle = result.splice(result.length - 1, 1)
+  result.unshift(...lastMuscle)
+  return result
+
 };
 
 const mapStateToProps = state => ({

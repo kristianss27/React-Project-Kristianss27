@@ -1,9 +1,32 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Paper from "@material-ui/core/Paper";
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import PhoneIcon from '@material-ui/icons/Phone';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import green from '@material-ui/core/colors/green';
 
-export default ({ muscles, category, onSelect }) => {
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    position: 'fixed',
+    bottom: '0',
+    textAlign: 'center',
+    backgroundColor: theme.palette.background.paper
+  },
+  tabLabel: {
+    fontSize: '120%'
+  }
+});
+
+const Footer = ({ muscles, category, onSelect, classes}) => {
   muscles = muscles.map(item => item)
   const index = category
     ? muscles.findIndex(group => group === category) + 1
@@ -13,19 +36,24 @@ export default ({ muscles, category, onSelect }) => {
     onSelect(index === 0 ? '' : muscles[index - 1]);
 
   return (
-    <Paper>
-      <Tabs
-        value={index}
-        onChange={indexSelected}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="All" />
-        {muscles.map(group => (
-          <Tab key={group} label={group} />
-        ))}
-      </Tabs>
-    </Paper>
+    <React.Fragment>
+    <div className={classes.root}>
+        <Tabs
+          value={index}
+          onChange={indexSelected}
+          variant="scrollable"
+          indicatorColor="primary"
+          textColor="primary"
+        >
+            <BottomNavigationAction label="Top 5" icon={<FavoriteIcon />} />
+            {muscles.map(group => (
+              <BottomNavigationAction key={group} showLabel={true} label={<span className={classes.tabLabel}>{group}</span>} />
+            ))}
+        </Tabs>
+        
+   </div>
+  </React.Fragment>
   );
 };
+
+export default withStyles(styles)(Footer)

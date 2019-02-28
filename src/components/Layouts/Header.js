@@ -6,7 +6,7 @@ import MuscleList from "../../components/MuscleList"
 
 export default () => (
   <React.Fragment>
-    <AppBar position="static">
+    <AppBar position="relative">
       <Toolbar>
         <Typography variant="headline" color="inherit" style={{ flex: 1 }}>
           Excercises database

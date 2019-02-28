@@ -1,8 +1,8 @@
 import {
-  INVALIDATE_MUSCLE_BY_DETAIL,
+  INVALIDATE_MUSCLES_BY_DETAIL,
   REQUEST_MUSCLES_BY_DETAIL,
   RECEIVE_MUSCLES_BY_DETAIL
-} from "../constants/ActionTypes";
+} from '../constants/ActionTypes'
 
 const musclesByDetail = (
   state = {
@@ -13,32 +13,32 @@ const musclesByDetail = (
   action
 ) => {
   switch (action.type) {
-    case INVALIDATE_MUSCLE_BY_DETAIL:
+    case INVALIDATE_MUSCLES_BY_DETAIL:
       return {
         ...state,
         didInvalidate: true
-      };
+      }
     case REQUEST_MUSCLES_BY_DETAIL:
       return {
         ...state,
         isFetching: true,
         didInvalidate: false
-      };
+      }
     case RECEIVE_MUSCLES_BY_DETAIL:
       const result = {
         ...state,
         isFetching: false,
         didInvalidate: false,
         items: [...action.items]
-      };
-      return result;
+      }
+      return result
     default:
-      return state;
+      return state
   }
-};
+}
 
-export const countMuscles = (state) => {
+export const countMuscles = state => {
   return state.musclesByDetail.items.length
 }
 
-export default musclesByDetail;
+export default musclesByDetail

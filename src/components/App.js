@@ -4,6 +4,7 @@ import Footer from "../containers/Footer";
 import Excercises from "../containers/Excercises";
 import { connect } from 'react-redux'
 import { musclesByDefault } from '../actions'
+import Radio from '@material-ui/core/Radio';
 
 class App extends Component {
 
@@ -27,7 +28,13 @@ class App extends Component {
         <Header />
         
         <Excercises />
-
+       <Radio
+      checked={true}
+      onChange={true}
+      value="1"
+      name="radio-button-demo"
+      aria-label="DALEEEEe"
+    />
         <Footer />
       </Fragment>
     );
