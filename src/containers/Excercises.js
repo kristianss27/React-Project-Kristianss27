@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onEdit: (open,excercise) => {
     dispatch(openForm(open))
     dispatch(setExcercise(excercise));
-  },
+  }
 });
 
 export default withRouter(connect(
