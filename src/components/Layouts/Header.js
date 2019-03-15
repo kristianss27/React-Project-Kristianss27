@@ -1,21 +1,22 @@
-import React from "react";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import MainButton from "../../containers/MainButton";
-import Muscles from "../../containers/Muscles.js" 
-import MuscleList from "../../components/MuscleList"
+import React from "react"
+import { AppBar, Toolbar, Typography } from "@material-ui/core"
+import Menu from "../../components/Menu"
+import { withRouter } from 'react-router-dom'
+import { Grid } from '@material-ui/core'
 
-export default () => (
-  <React.Fragment>
-    <AppBar position="relative">
-      <Toolbar>
-        <Typography variant="headline" color="inherit" style={{ flex: 1 }}>
-          Excercises database
+const Header = ({ filter }) => (
+  <div style={{flexGrow: 1}}>
+    <Grid container justify="space-between" alignItems="center">
+      <Grid item>
+        <Typography variant="h6" color="inherit" style={{marginLeft: '5px'}}>
+          Pick up some Exercises
         </Typography>
-        <MainButton />
-      </Toolbar>
-    </AppBar>
-    <Muscles/>
-  </React.Fragment>
+      </Grid>
+      <Grid item> 
+        <Menu filter={filter}/>
+      </Grid>
+    </Grid>
+  </div>
 );
 
-/*<CreateDialog muscles={muscles} onCreate={onExcerciseCreate} />*/
+export default withRouter(Header)

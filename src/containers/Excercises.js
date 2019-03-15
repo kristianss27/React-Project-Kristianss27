@@ -1,9 +1,15 @@
-import { connect } from "react-redux";
-import ExcerciseList from "../components/ExcerciseList";
-import { deleteExcercise, setExcercise, openForm } from "../actions";
-import { muscles } from "../store";
+import { connect } from 'react-redux'
+import ExcerciseList from '../components/ExcerciseList'
+import { deleteExcercise, setExcercise, openForm } from '../actions'
+import { muscles } from '../store'
+import { withRouter } from 'react-router-dom'
 
 const excercisesByMuscle = state => {
+  if(state.category==='') return state.excercises.items
+  else return state.excercises.items.filter(item => item.muscles===state.category)
+}
+
+const excercisesByMuscle2 = state => {
   let initMuscles = muscles.reduce(
     (excercises, category) => ({
       ...excercises,
@@ -50,7 +56,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(ExcerciseList);
+)(ExcerciseList))
