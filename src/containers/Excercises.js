@@ -37,9 +37,9 @@ const excercisesByMuscle2 = state => {
 };
 
 const mapStateToProps = state => ({
-  excercises: excercisesByMuscle(state),
+  exercises: excercisesByMuscle(state),
   category: state.category,
-  excercise: state.excercise,
+  exercise: state.excercise,
   openForm: state.openForm
 });
 

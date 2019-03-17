@@ -29,7 +29,7 @@ const goldenTheme = createMuiTheme({
         left: 0,
         opacity: 0
       },
-    },
+    }
   },
   typography: {
     useNextVariants: true,

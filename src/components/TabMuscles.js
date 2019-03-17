@@ -24,6 +24,10 @@ const styles = theme => ({
   },
   tabLabel: {
     fontSize: '120%'
+  },
+  overwriteTab: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 });
 
@@ -45,7 +49,9 @@ const TabMuscles = ({ muscles, category, onSelect, classes}) => {
           variant="scrollable"
           indicatorColor="primary"
           textcolor="primary"
-          
+          classes={{
+            flexContainer: classes.overwriteTab
+          }}
         >
             <BottomNavigationAction label="Top 5" icon={<FavoriteIcon />} />
             {muscles.map(group => (

@@ -24,10 +24,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import toRenderProps from "recompose/toRenderProps";
 import withWidth from "@material-ui/core/withWidth";
-import SwipeableImg from "./SwipeableImg";
+import ExerciseOverview from "./ExerciseOverview";
 import Drawer from "@material-ui/core/Drawer";
 import TabMuscles from "../containers/TabMuscles";
 import ButtonWorkout from "./ButtonWorkout"
+import MainButton from "../containers/MainButton"
 
 const styles = theme => ({
   root: {
@@ -151,11 +152,11 @@ class ExcerciseList extends React.Component {
   render() {
     const {
       classes,
-      excercises,
+      exercises,
       category,
       onSelect,
       onDelete,
-      excercise,
+      exercise,
       openForm,
       onEdit,
       addToWorkout,
@@ -163,13 +164,13 @@ class ExcerciseList extends React.Component {
       location,
       history
     } = this.props;
-    const title = excercise.title ? excercise.title : "Excercise App";
-    const description = excercise.title
-      ? parse(excercise.description)
-      : "Pick up an excercise from the left";
+    const title = exercise.title ? exercise.title : "Excercise App";
+    const description = exercise.title
+      ? parse(exercise.description)
+      : "Pick up an exercise from the left";
     const { index } = this.state;
-    const images = excercise.images
-      ? excercise.images.map(item => {
+    const images = exercise.images
+      ? exercise.images.map(item => {
           return (
             <CardMedia key={item} className={classes.media} image={item} />
           );
@@ -181,6 +182,9 @@ class ExcerciseList extends React.Component {
         <div>
           <TabMuscles />
         </div>
+        <div>
+          <MainButton />
+        </div>
         <Grid
           container
           direction="row"
@@ -188,7 +192,7 @@ class ExcerciseList extends React.Component {
           alignItems="center"
           spacing={24}
         >
-          {excercises.map(exercise => {
+          {exercises.map(exercise => {
             return (
               <Grid item>
                 <Card className={classes.card}>
@@ -242,8 +246,8 @@ class ExcerciseList extends React.Component {
             onClose={this.handleClose}
             TransitionComponent={Transition}
           >
-            <AppBar className={classes.appBar} color="secondary">
-              <Toolbar color="secondary">
+            <AppBar className={classes.appBar} color="white">
+              <Toolbar color="white">
                 <IconButton
                   color="inherit"
                   onClick={this.handleClose}
@@ -254,14 +258,11 @@ class ExcerciseList extends React.Component {
                 <Typography
                   variant="h6"
                   color="inherit"
-                  fontWeight="fontWeightLight"
                   className={classes.flex}
                 >
-                  OVERVIEW
+                  {exercise.title}
                 </Typography>
-                <Button color="inherit" onClick={this.handleClose}>
-                  save
-                </Button>
+                <ButtonWorkout preview={true} exercise={exercise}/>
               </Toolbar>
             </AppBar>
 
@@ -270,33 +271,13 @@ class ExcerciseList extends React.Component {
                 if (width === "xs") {
                   return (
                     <div>
-                      <SwipeableImg exercise={excercise} />
+                      <ExerciseOverview exercise={exercise} />
                     </div>
                   );
                 } else {
                   return (
                     <div>
-                      <Drawer
-                        className={classes.drawer}
-                        variant="permanent"
-                        classes={{
-                          paper: classes.drawerPaper
-                        }}
-                      >
-                        <List style={{ marginTop: "55px" }}>
-                          {excercise.images.map((url, index) => (
-                            <ListItem button key={index}>
-                              <img src={url} className={classes.cover} />
-                            </ListItem>
-                          ))}
-                        </List>
-                      </Drawer>
-                      <Typography
-                        variant="subheading"
-                        className={classes.textDesc}
-                      >
-                        {description}
-                      </Typography>
+                      <ExerciseOverview exercise={exercise} tabType="nomobile"/>
                     </div>
                   );
                 }

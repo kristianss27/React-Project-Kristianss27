@@ -9,10 +9,12 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
+  OutlinedInput,
   Select,
   MenuItem,
   InputLabel,
-  Fab
+  Fab,
+  Chip
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
@@ -23,12 +25,14 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-    width: 500
+    margin: theme.spacing.unit
   },
   select: {
     marginTop: theme.spacing.unit * 2
+  },
+  fragment: {
+    marginTop: '10px',
+    marginBottom: '10px'
   }
 });
 
@@ -109,17 +113,18 @@ export default withStyles(styles)(
       const buttonText = title===''?constants.CREATE:constants.EDIT;
       return (
         <Fragment>
-          <Fab
-            size="small"
-            color="secondary"
-            aria-label="Add"
+          <Chip className={classes.fragment}
+            avatar={<Fab size="small" color="secondary" aria-label="Add"> <AddIcon /> </Fab>}
+          label="Add your own exercise"
+          clickable
             onClick={() => {
               setExcercise({})
-              handleToggle(!openForm)}
+              handleToggle(!openForm)
             }
-          >
-            <AddIcon />
-          </Fab>
+            }
+          variant="outlined"
+            color="secondary"
+        />
           <Dialog
             open={open}
             onClose={() => {
@@ -127,15 +132,19 @@ export default withStyles(styles)(
               handleToggle(!openForm)}
               }
             aria-labelledby="form-dialog-title"
+            scroll="body"
           >
             <DialogTitle id="form-dialog-title">
-              Create a new excercise
+              Create new exercise
             </DialogTitle>
             <DialogContent>
               <DialogContentText>Please fill out the form</DialogContentText>
               <form className={classes.root}>
                 <TextField
                   label="Title"
+                  variant="outlined"
+                  required="true"
+                  fullWidth={true}
                   name={title}
                   value={this.state.excercise.title ? this.state.excercise.title : title}
                   className={classes.formControl}
@@ -143,28 +152,36 @@ export default withStyles(styles)(
                   margin="normal"
                 />
                 <br />
-                <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="muscles">Muscles</InputLabel>
-                  <Select
-                    value={this.state.excercise.muscles ? this.state.excercise.muscles : muscles}
-                    name={muscles}
-                    className={classes.selectEmpty}
-                    onChange={this.handleChange("muscles")}
-                  >
-                    {categories.map(category => (
-                      <MenuItem key={category} value={category}>
-                        {category}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <TextField
+                id="muscles"
+                required="true"
+                select
+                fullWidth={true}
+                label="Muscle"
+                className={classes.formControl}
+                value={this.state.excercise.muscles ? this.state.excercise.muscles : muscles}
+                name={muscles}
+                onChange={this.handleChange("muscles")}
+                margin="normal"
+                variant="outlined"
+              >
+                  {categories.map(category => (
+                    <MenuItem key={category} value={category}>
+                      {category}
+                    </MenuItem>
+                  ))}
+              </TextField>
 
                 <TextField
                   label="Description"
+                  variant="outlined"
+                  required="true"
+                  fullWidth={true}
                   multiline
+                  rows="6"
                   value={this.state.excercise.description ? this.state.excercise.description : description}
                   className={classes.formControl}
-                  rowsMax="4"
+                  rowsMax="10"
                   name={description}
                   onChange={this.handleChange("description")}
                   margin="normal"

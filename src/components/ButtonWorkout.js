@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { addExerciseToWorkout, deleteExerciseFromWorkout } from '../actions/workout.js'
 
-const ButtonWorkout = ({ exercise, exerciseOnWorkout, addToWorkout, unSelect}) => {
+const ButtonWorkout = ({ preview=false, exercise, exerciseOnWorkout, addToWorkout, unSelect}) => {
   
   const selected = exerciseOnWorkout.filter(item => { 
       return item.id===exercise.id
@@ -12,9 +12,10 @@ const ButtonWorkout = ({ exercise, exerciseOnWorkout, addToWorkout, unSelect}) =
   const variant = selected.length > 0 ?'contained':'outlined'
   const word = selected.length > 0 ? 'Selected' : 'Select'
   const onClick = () => { selected.length > 0 ? unSelect(exercise):addToWorkout(exercise) }
+  const color = preview ? 'secondary' : 'primary'
 
   return(
-    <Button variant={variant} size="small" color="primary" onClick={onClick}>
+    <Button variant={variant} size="small" color={color} onClick={onClick}>
       {word}
     </Button>
   )

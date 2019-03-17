@@ -1,5 +1,5 @@
 import React from "react"
-import { AppBar, Toolbar, Typography } from "@material-ui/core"
+import { Typography } from "@material-ui/core"
 import Menu from "../../components/Menu"
 import { withRouter } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
