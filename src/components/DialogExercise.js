@@ -15,7 +15,9 @@ import ExerciseForm from './ExerciseForm'
 const styles = theme => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignContent: 'stretch'
   },
   formControl: {
     margin: theme.spacing.unit
@@ -29,6 +31,9 @@ const styles = theme => ({
   },
   buttons: {
     marginInlineStart: 'auto'
+  },
+  buttonRoot: {
+    borderRadius: '20%'
   }
 })
 
