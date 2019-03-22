@@ -19,6 +19,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
     alignContent: 'stretch'
   },
+  imagesContainer: {
+    display: 'flex'
+  },
   formControl: {
     margin: theme.spacing.unit
   },
@@ -34,6 +37,11 @@ const styles = theme => ({
   },
   buttonRoot: {
     borderRadius: '20%'
+  },
+  errorBox: {
+    color: 'red',
+    marginTop: '.1rem',
+    alignSelf: 'flex-end'
   }
 })
 
@@ -134,9 +142,7 @@ export default withStyles(styles)(
             aria-labelledby="form-dialog-title"
             scroll="body"
           >
-            <DialogTitle id="form-dialog-title">
-              Create new exercise
-            </DialogTitle>
+            <DialogTitle id="form-dialog-title">New exercise</DialogTitle>
             <DialogContent>
               <DialogContentText>Please fill out the form</DialogContentText>
               <ExerciseForm

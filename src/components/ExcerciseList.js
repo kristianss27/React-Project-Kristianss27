@@ -52,7 +52,11 @@ const styles = theme => ({
     flexWrap: 'wrap', //nowrap (default) | wrap | wrap-reverse
     flexDirection: 'row', //row (default)| row-reverse | column | column-reverse;
     marginTop: 1,
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    minHeight: '220px',
+    minWidth: '220px',
+    maxHeight: '220px',
+    maxWidth: '220px'
   },
   cover: {
     objectFit: 'cover',
@@ -224,7 +228,9 @@ class ExcerciseList extends React.Component {
                         color="inherit"
                         gutterBottom
                       >
-                        bodybuilding.com
+                        {exercise.images && exercise.images.length > 0
+                          ? exercise.images[0].split('//')[1].split('/')[0]
+                          : 'add an image'}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
