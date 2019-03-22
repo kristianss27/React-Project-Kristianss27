@@ -1,8 +1,14 @@
 {
-  "name": "react-redux-project",
+  "name": "workout-react-project-module-exercise",
   "version": "1.0.0",
-  "description": "Adding redux to my react project",
-  "keywords": [],
+  "description": "The Module Exercise fetch the data of some exercises, show an overview of each, allows the user picking up exercises for a future workout, and also create new exercises.\nThis is the fork of a whole app called \"Workout\" which is a web app that allows the user selects exercises from a list with the aim of setting up a workout\nThis is a Lab project created with the aim of exploring the advantages of using React.js | Material-ui | React Router | Redux... among other third parties libraries in the development of responsive SPA's",
+  "keywords": [
+    "react-router",
+    "react",
+    "rial-ui",
+    "redux",
+    "formik"
+  ],
   "main": "src/index.js",
   "dependencies": {
     "@material-ui/core": "3.9.2",

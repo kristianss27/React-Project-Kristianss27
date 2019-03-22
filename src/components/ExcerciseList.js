@@ -232,7 +232,6 @@ class ExcerciseList extends React.Component {
                           ?exercise.images[0].split("//")[1].split("/")[0]
                           :'add an image'
                         }
-
                       </Typography>
                     </CardContent>
                   </CardActionArea>

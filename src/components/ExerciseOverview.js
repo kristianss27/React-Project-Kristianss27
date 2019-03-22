@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 import { Typography, Tabs } from '@material-ui/core'
 import parse from 'html-react-parser'
 import * as _properties from '../constants/Properties'
@@ -20,59 +20,70 @@ const styles = theme => ({
     justifyContent: 'space-between'
   },
   tabMobile: {
-    display: 'flex',
+    display: 'flex'
   },
   item: {
-    objectFit: "cover",
-    maxWidth: "220px",
-    maxHeight: "220px"
+    objectFit: 'cover',
+    maxWidth: '220px',
+    maxHeight: '220px'
   },
   description: {
-    marginTop: "5px",
-    marginRight: "5px",
-    marginLeft: "5px"
+    marginTop: '5px',
+    marginRight: '5px',
+    marginLeft: '5px'
   }
-});
+})
 
-const ExerciseOverview = ({classes,exercise,tabType='mobile'}) => {
-  const img = exercise.images.length>0 ?
-        exercise.images.map(img => (
+const ExerciseOverview = ({ classes, exercise, tabType = 'mobile' }) => {
+  const img =
+    exercise.images.length > 0 ? (
+      exercise.images.map(img => (
         <img className={classes.item} src={img} alt={'Image'} />
-        ))
-        :<img className={classes.item} src={_properties.IMG_DEFAULT} alt={'Image'} />
-
-  const tabs = tabType==='mobile'?classes.tabMobile:classes.tab
-  return(
-      <div>
+      ))
+    ) : (
+      <img
+        className={classes.item}
+        src={_properties.IMG_DEFAULT}
+        alt={'Image'}
+      />
+    )
+  
+  const tabs = tabType === 'mobile' ? classes.tabMobile : classes.tab
+  return (
+    <div>
       <div className={classes.root}>
-        { img.length >2
-        ?
+        {img.length > 2 ? (
           <Tabs
-          value={false}
-          classes={{
-            flexContainer: tabs
+            value={false}
+            classes={{
+              flexContainer: tabs
             }}
-          variant="scrollable"
-          indicatorColor="primary"
-          textcolor="primary"
+            variant="scrollable"
+            indicatorColor="primary"
+            textcolor="primary"
           >
           {img}
           </Tabs>
-        :<div>{img}</div>
-        }
+        ) : (
+          <div>{img}</div>
+        )}
       </div>
-      <div style={{display:'flex'}}>
-        <Typography variant="body2" className={classes.description} align="left">
-        {parse(exercise.description)}
-      </Typography>
+      <div style={{ display: 'flex' }}>
+        <Typography
+          variant="body2"
+          className={classes.description}
+          align="left"
+        >
+          {parse(exercise.description)}
+        </Typography>
       </div>
-      </div>
-    )
-    }
-    
-    export default withStyles(styles)(ExerciseOverview)
-    
-    /** <div className={classes.container}>
+    </div>
+  )
+}
+
+export default withStyles(styles)(ExerciseOverview)
+
+/** <div className={classes.container}>
           {img}
           <Typography variant="subheading">
             {parse(exercise.description)}
