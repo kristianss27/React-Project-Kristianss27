@@ -45,7 +45,7 @@ The check mark describes what has been completed:
 A [Trello Board](https://trello.com/en) will be added here to continue the description of all functionalities and the ToDoList of the project
   
 ## Project available with the support of Codesandbox.io
-[Click here to see it in action](https://codesandbox.io/s/l48zm7y229)
+[Click here to see it in action](https://codesandbox.io/s/github/kristianss27/React-Project-Kristianss27)
 
 ## Notes
 This is a Solo Project developed by [Cristian Sanchez](https://www.linkedin.com/in/kristianss27).
