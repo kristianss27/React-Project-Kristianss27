@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Tabs } from '@material-ui/core'
 import parse from 'html-react-parser'
+import * as _properties from '../constants/Properties'
 
 const styles = theme => ({
   root: {
@@ -34,11 +35,11 @@ const styles = theme => ({
 });
 
 const ExerciseOverview = ({classes,exercise,tabType='mobile'}) => {
-  const img = exercise.images ?
+  const img = exercise.images.length>0 ?
         exercise.images.map(img => (
         <img className={classes.item} src={img} alt={'Image'} />
         ))
-        :''
+        :<img className={classes.item} src={_properties.IMG_DEFAULT} alt={'Image'} />
 
   const tabs = tabType==='mobile'?classes.tabMobile:classes.tab
   return(
@@ -55,7 +56,7 @@ const ExerciseOverview = ({classes,exercise,tabType='mobile'}) => {
           indicatorColor="primary"
           textcolor="primary"
           >
-          {img===''?<p>No images added</p>:img}
+          {img}
           </Tabs>
         :<div>{img}</div>
         }
