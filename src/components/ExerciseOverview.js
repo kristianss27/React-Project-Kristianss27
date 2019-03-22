@@ -47,7 +47,7 @@ const ExerciseOverview = ({ classes, exercise, tabType = 'mobile' }) => {
         alt={'Image'}
       />
     )
-
+  
   const tabs = tabType === 'mobile' ? classes.tabMobile : classes.tab
   return (
     <div>
@@ -62,7 +62,7 @@ const ExerciseOverview = ({ classes, exercise, tabType = 'mobile' }) => {
             indicatorColor="primary"
             textcolor="primary"
           >
-            {img}
+          {img}
           </Tabs>
         ) : (
           <div>{img}</div>

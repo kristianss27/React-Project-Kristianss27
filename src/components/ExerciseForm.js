@@ -127,8 +127,9 @@ const MyForm = props => {
         margin="normal"
       />
       {errors.description && touched.description && (
-        <div className={classes.errorBox}>{errors.description}</div>
-      )}
+        <div className={classes.errorBox}>
+          {errors.description}
+        </div>
 
       <FieldArray
         name="images"
@@ -137,48 +138,33 @@ const MyForm = props => {
             {values.images && values.images.length > 0 ? (
               values.images.map((image, index, array) => (
                 <div key={`inside${index}`}>
-                  <div key={index} className={classes.imagesContainer}>
-                    <Field
-                      name={`images.${index}`}
-                      component={InputComponent}
-                    />
-                    <ButtonBase
-                      focusRipple={false}
-                      disableTouchRipple={true}
-                      disableRipple={true}
-                      color="secondary"
-                      style={{ margin: '9px' }}
-                      onClick={() => arrayHelpers.remove(index)}
-                    >
-                      <DeleteIcon />
-                    </ButtonBase>
-                    <Tooltip
-                      id={`msg${index}`}
-                      title={
-                        array.length === constants.maximunImages
-                          ? `${constants.maximunImages} max`
-                          : `add`
-                      }
-                      placement="top"
-                    >
-                      <ButtonBase
-                        focusRipple={false}
-                        disableTouchRipple={true}
-                        disableRipple={true}
-                        color="secondary"
-                        onClick={() =>
-                          array.length === constants.maximunImages
-                            ? ''
-                            : arrayHelpers.insert(index + 1, '')
-                        } // insert an empty string at a position
-                      >
-                        <AddIcon />
-                      </ButtonBase>
-                    </Tooltip>
-                  </div>
-                  <div className={classes.errorBox}>
-                    <ErrorMessage name={`images.${index}`} />
-                  </div>
+                <div key={index} className={classes.imagesContainer}>
+                  <Field name={`images.${index}`} component={InputComponent} />
+                  <ButtonBase
+                    focusRipple={false}
+                    disableTouchRipple={true}
+                    disableRipple={true}
+                    color="secondary"
+                    style={{margin:'9px'}}
+                    onClick={() => arrayHelpers.remove(index)}
+                  >
+                    <DeleteIcon />
+                  </ButtonBase>
+                  <Tooltip id={`msg${index}`} title={(array.length===constants.maximunImages)?`${constants.maximunImages} max`:`add`} placement="top">
+                  <ButtonBase
+                    focusRipple={false}
+                    disableTouchRipple={true}
+                    disableRipple={true}
+                    color="secondary"
+                    onClick={() => (array.length===constants.maximunImages)?'':arrayHelpers.insert(index+1, '')} // insert an empty string at a position
+                  >
+                    <AddIcon />
+                  </ButtonBase>
+                  </Tooltip>
+                </div>
+                <div className={classes.errorBox}>
+                  <ErrorMessage name={`images.${index}`} />
+                </div>
                 </div>
               ))
             ) : (
@@ -235,6 +221,7 @@ const InputComponent = ({
   form: { touched, errors, handleChange, handleBlur }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => (
+
   <TextField
     label="*Image url"
     variant="outlined"
@@ -263,5 +250,12 @@ const getErrorMsg = error => {
     else if (error.search(/URL/g) !== -1) return constants.imgRequired
     else return error
   }
+      const error = getIn(form.errors, name);
+      let errorMsg = getErrorMsg(error)
+      const touch = getIn(form.touched, name);
+      return touch && error ? errorMsg : null;
+    }}
+  />
+);
 }
 /**<DisplayFormikState {...props} /> */

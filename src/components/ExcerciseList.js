@@ -229,8 +229,9 @@ class ExcerciseList extends React.Component {
                         gutterBottom
                       >
                         {exercise.images && exercise.images.length > 0
-                          ? exercise.images[0].split('//')[1].split('/')[0]
-                          : 'add an image'}
+                          ?exercise.images[0].split("//")[1].split("/")[0]
+                          :'add an image'
+                        }
                       </Typography>
                     </CardContent>
                   </CardActionArea>
