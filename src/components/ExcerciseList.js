@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 import {
   Grid,
   Typography,
@@ -10,76 +10,75 @@ import {
   List,
   ListItem,
   ListItemText
-} from '@material-ui/core'
-import * as _properties from '../constants/Properties'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import parse from 'html-react-parser'
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
-import Slide from '@material-ui/core/Slide'
-import toRenderProps from 'recompose/toRenderProps'
-import withWidth from '@material-ui/core/withWidth'
-import ExerciseOverview from './ExerciseOverview'
-import Drawer from '@material-ui/core/Drawer'
-import TabMuscles from '../containers/TabMuscles'
-import ButtonWorkout from './ButtonWorkout'
-import MainButton from '../containers/MainButton'
+} from "@material-ui/core";
+import * as _properties from "../constants/Properties";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import parse from "html-react-parser";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+import ExerciseOverview from "./ExerciseOverview";
+import Drawer from "@material-ui/core/Drawer";
+import TabMuscles from "../containers/TabMuscles";
+import ButtonWorkout from "./ButtonWorkout";
+import MainButton from "../containers/MainButton";
+import WithWidth from "./WithWidth";
 
 const styles = theme => ({
   root: {
-    flexGrow: '1',
-    overflow: 'hidden'
+    flexGrow: "1",
+    overflow: "hidden"
   },
   photos: {
     padding: theme.spacing.unit,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down("xs")]: {
       backgroundColor: theme.palette.secondary.main
     }
   },
   card: {
-    flex: 'auto',
+    flex: "auto",
     color: theme.palette.text.secondary,
-    marginTop: '2px',
-    marginBottom: '1px'
+    marginTop: "2px",
+    marginBottom: "1px"
   },
   desc: {
-    display: 'flex',
-    flexWrap: 'wrap', //nowrap (default) | wrap | wrap-reverse
-    flexDirection: 'row', //row (default)| row-reverse | column | column-reverse;
+    display: "flex",
+    flexWrap: "wrap", //nowrap (default) | wrap | wrap-reverse
+    flexDirection: "row", //row (default)| row-reverse | column | column-reverse;
     marginTop: 1,
     color: theme.palette.text.secondary,
-    minHeight: '220px',
-    minWidth: '220px',
-    maxHeight: '220px',
-    maxWidth: '220px'
+    minHeight: "220px",
+    minWidth: "220px",
+    maxHeight: "220px",
+    maxWidth: "220px"
   },
   cover: {
-    objectFit: 'cover',
-    maxWidth: '220px',
-    maxHeight: '220px'
+    objectFit: "cover",
+    maxWidth: "220px",
+    maxHeight: "220px"
   },
   content: {
-    objectFit: 'cover',
-    maxWidth: '220px',
-    maxHeight: '220px'
+    objectFit: "cover",
+    maxWidth: "220px",
+    maxHeight: "220px"
   },
   small: {
-    '& svg': {
+    "& svg": {
       fontSize: 18
     }
   },
   medium: {
-    '& svg': {
+    "& svg": {
       fontSize: 24
     }
   },
   large: {
-    '& svg': {
+    "& svg": {
       fontSize: 32
     }
   },
@@ -87,71 +86,69 @@ const styles = theme => ({
     maxWidth: 400
   },
   swipeable: {
-    display: 'inline-flex'
+    display: "inline-flex"
   },
   media: {},
   appBar: {
-    position: 'fixed',
+    position: "fixed",
     zIndex: theme.zIndex.drawer + 1
   },
   flex: {
     flex: 1
   },
   drawer: {
-    width: '320',
+    width: "320",
     flexShrink: 0
   },
   drawerPaper: {
-    width: '320'
+    width: "320"
   },
   drawerImage: {
     marginTop: 3,
-    width: '320px'
+    width: "320px"
   },
   textDesc: {
-    marginTop: '70px',
-    marginLeft: '170px'
+    marginTop: "70px",
+    marginLeft: "170px"
   }
-})
+});
 
 function Transition(props) {
-  return <Slide direction="up" {...props} />
+  return <Slide direction="up" {...props} />;
 }
-
-const WithWidth = toRenderProps(withWidth())
 
 class ExcerciseList extends React.Component {
   state = {
     index: 0,
     open: false
-  }
+  };
 
   handleClickOpen = excercise => e => {
-    this.props.onSelect(excercise)
-    this.setState({ open: true })
-  }
+    this.props.onSelect(excercise);
+    this.setState({ open: true });
+  };
 
   handleClose = () => {
-    this.setState({ open: false })
-  }
+    this.setState({ open: false });
+  };
 
   handleChangeIndex = index => {
     this.setState({
       index
-    })
-  }
+    });
+  };
 
   handleChange = value => {
     this.setState({
       index: value
-    })
-  }
+    });
+  };
 
   handleChangeTab = (event, index) => {
     this.setState({
       index
-    })
-  }
+    });
+  };
 
   render() {
     const {
@@ -167,17 +164,19 @@ class ExcerciseList extends React.Component {
       match,
       location,
       history
-    } = this.props
-    const title = exercise.title ? exercise.title : 'Excercise App'
+    } = this.props;
+    const title = exercise.title ? exercise.title : "Excercise App";
     const description = exercise.title
       ? parse(exercise.description)
-      : 'Pick up an exercise from the left'
-    const { index } = this.state
+      : "Pick up an exercise from the left";
+    const { index } = this.state;
     const images = exercise.images
       ? exercise.images.map(item => {
-          return <CardMedia key={item} className={classes.media} image={item} />
+          return (
+            <CardMedia key={item} className={classes.media} image={item} />
+          );
         })
-      : ''
+      : "";
 
     return (
       <div className={classes.root}>
@@ -229,15 +228,13 @@ class ExcerciseList extends React.Component {
                         gutterBottom
                       >
                         {exercise.images && exercise.images.length > 0
-                          ?exercise.images[0].split("//")[1].split("/")[0]
-                          :'add an image'
-                        }
-
+                          ? exercise.images[0].split("//")[1].split("/")[0]
+                          : "add an image"}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions
-                    style={{ display: 'flex', justifyContent: 'flex-end' }}
+                    style={{ display: "flex", justifyContent: "flex-end" }}
                   >
                     <Button variant="outlined" size="small" color="primary">
                       Share
@@ -246,7 +243,7 @@ class ExcerciseList extends React.Component {
                   </CardActions>
                 </Card>
               </Grid>
-            )
+            );
           })}
         </Grid>
 
@@ -279,12 +276,12 @@ class ExcerciseList extends React.Component {
 
             <WithWidth>
               {({ width }) => {
-                if (width === 'xs') {
+                if (width === "xs") {
                   return (
                     <div>
                       <ExerciseOverview exercise={exercise} />
                     </div>
-                  )
+                  );
                 } else {
                   return (
                     <div>
@@ -293,7 +290,7 @@ class ExcerciseList extends React.Component {
                         tabType="nomobile"
                       />
                     </div>
-                  )
+                  );
                 }
                 //return <div>{`Current width: ${width}`}</div>
               }}
@@ -301,15 +298,15 @@ class ExcerciseList extends React.Component {
           </Dialog>
         </div>
       </div>
-    )
+    );
   }
 }
 
 ExcerciseList.propTypes = {
   classes: PropTypes.object.isRequired
-}
+};
 
-export default withStyles(styles)(ExcerciseList)
+export default withStyles(styles)(ExcerciseList);
 
 /**
  * Include it on the render method to see the info of react router

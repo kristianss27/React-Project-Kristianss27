@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-project",
+  "name": "workout-react-project-module-my-workout",
   "version": "1.0.0",
-  "description": "Adding redux to my react project",
+  "description": "The Module \"My Workout\" shows all exercise selected by the user (For testing I pre-define an object) and adjust each exercise with by sets and repetitions among other features. The goal is setup the workout and create a code to be shared with others \nThis is the fork of a whole app called \"Workout\" available here  https://github.com/kristianss27/React-Project-Kristianss27",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
