@@ -1,20 +1,30 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { addExerciseToWorkout, deleteExerciseFromWorkout } from '../actions/workout.js'
+import {
+  addExerciseToWorkout,
+  deleteExercise_workout
+} from '../actions/workout.js'
 
-const ButtonWorkout = ({ preview=false, exercise, exerciseOnWorkout, addToWorkout, unSelect}) => {
-  
-  const selected = exerciseOnWorkout.filter(item => { 
-      return item.id===exercise.id
-    })
+const ButtonWorkout = ({
+  preview = false,
+  exercise,
+  exerciseOnWorkout,
+  addToWorkout,
+  unSelect
+}) => {
+  const selected = exerciseOnWorkout.filter(item => {
+    return item.id === exercise.id
+  })
 
-  const variant = selected.length > 0 ?'contained':'outlined'
+  const variant = selected.length > 0 ? 'contained' : 'outlined'
   const word = selected.length > 0 ? 'Selected' : 'Select'
-  const onClick = () => { selected.length > 0 ? unSelect(exercise):addToWorkout(exercise) }
+  const onClick = () => {
+    selected.length > 0 ? unSelect(exercise) : addToWorkout(exercise)
+  }
   const color = preview ? 'secondary' : 'primary'
 
-  return(
+  return (
     <Button variant={variant} size="small" color={color} onClick={onClick}>
       {word}
     </Button>
@@ -26,11 +36,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addToWorkout: (exercise) => {
+  addToWorkout: exercise => {
     dispatch(addExerciseToWorkout(exercise))
   },
-  unSelect: (exercise) => {
-    dispatch(deleteExerciseFromWorkout(exercise.id))
+  unSelect: exercise => {
+    dispatch(deleteExercise_workout(exercise.id))
   }
 })
 
@@ -38,7 +48,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ButtonWorkout)
-
 
 /**if (state.workout.exercises.filter(workoutExercise => {
     return workoutExercise === result
